@@ -48,11 +48,16 @@ namespace Labb_MiniAPI.Service
 
         public async Task<IEnumerable<Book>> Search(string search)
         {
-            var result = await _context.Books.Where(s => s.Title.ToLower() == search 
-            || s.Author.ToLower() == search 
-            || s.Genre.ToLower() == search 
-            || s.PublishingYear.ToString() == search).Distinct().ToListAsync();
-            return result.Any() ? result : null;
+            var result = await _context.Books.Where(s => s.Title.Contains(search) 
+            || s.Author.Contains(search)
+            || s.Genre.Contains(search)
+            || s.PublishingYear.ToString().Contains(search)).ToListAsync();
+
+            if (result.Any())
+            {
+                return result;
+            }
+            return null;
         }
 
         public async Task<Book> UpdateBook(Book updateBook, int id)

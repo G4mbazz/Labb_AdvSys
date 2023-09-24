@@ -132,16 +132,16 @@ namespace Labb_MiniAPI.Endpoints
                     return Results.BadRequest(e);
                 }
             }).WithName("DeleteBook").Produces<ApiResponse>(200).Produces(400);
-            app.MapGet("/api/book/search/",
+            app.MapGet("/book/search/",
                 async (IBookRepo repo, IMapper mapper, string search) =>
                 {
                     try
                     {
                         var response = new ApiResponse() { StatusCode = HttpStatusCode.NotFound, IsSuccess = false };
-                        var result = await repo.Search(search.ToLower());
-                        if (result.Any())
+                        var result = await repo.Search(search);
+                        if (result != null)
                         {
-                            var found = mapper.Map<BookDTO>(result);
+                            var found = mapper.Map<IEnumerable<BookDTO>>(result);
                             response.StatusCode = HttpStatusCode.OK;
                             response.Result = found;
                             response.IsSuccess = true;
