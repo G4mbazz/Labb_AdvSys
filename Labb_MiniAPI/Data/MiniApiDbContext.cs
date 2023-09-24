@@ -1,5 +1,5 @@
-﻿using Labb_MiniAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ModelsLib.Models;
 
 namespace Labb_MiniAPI.Data
 {

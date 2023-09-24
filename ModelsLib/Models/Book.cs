@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Labb_MiniAPI.Models
+namespace ModelsLib.Models
 {
     public class Book
     {

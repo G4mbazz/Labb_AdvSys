@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Labb_MiniAPI.Models.DTOs;
+using ModelsLib.Models;
 
 namespace Labb_MiniAPI.Validations
 {
@@ -9,7 +9,6 @@ namespace Labb_MiniAPI.Validations
         {
             RuleFor(book => book.Title).NotEmpty();
             RuleFor(book => book.Author).NotEmpty();
-            RuleFor(book => book.Stock).NotEmpty();
             RuleFor(book => book.PublishingYear).InclusiveBetween(1, DateTime.Now.Year);
             RuleFor(book => book.Description).NotEmpty();
             RuleFor(book => book.Genre).NotEmpty();

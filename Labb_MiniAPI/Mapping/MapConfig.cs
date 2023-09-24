@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Labb_MiniAPI.Models;
-using Labb_MiniAPI.Models.DTOs;
+using ModelsLib.Models;
 
 namespace Labb_MiniAPI.Mapping
 {

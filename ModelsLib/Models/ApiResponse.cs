@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Labb_MiniAPI.Models
+namespace ModelsLib.Models
 {
     public class ApiResponse
     {

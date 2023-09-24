@@ -1,5 +1,5 @@
 ﻿
-namespace Labb_MiniAPI.Models.DTOs
+namespace ModelsLib.Models
 {
     public class BookDTO
     {
