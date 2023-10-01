@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace ModelsLib.Models
+namespace ModelsLib.Models.MVC_Tools
 {
     public class ApiResponse
     {
@@ -9,7 +9,7 @@ namespace ModelsLib.Models
             ErrorMessages = new List<string>();
         }
         public bool IsSuccess { get; set; }
-        public Object Result { get; set; }
+        public object Result { get; set; }
         public HttpStatusCode StatusCode { get; set; }
         public List<string> ErrorMessages { get; set; }
     }

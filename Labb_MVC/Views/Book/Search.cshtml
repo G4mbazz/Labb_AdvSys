@@ -1,0 +1,48 @@
+﻿@using ModelsLib.Models;
+@model IEnumerable<ModelsLib.Models.BookDTO>;
+@{
+	ViewData["Title"] = "Search";
+}
+<h1>Search Results</h1>
+<div>
+
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Author)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Genre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PublishingYear)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Stock)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelitem => item.Title)</td>
+				<td>@Html.DisplayFor(modelitem => item.Author)</td>
+				<td>@Html.DisplayFor(modelitem => item.Description)</td>
+				<td>@Html.DisplayFor(modelitem => item.Genre)</td>
+				<td>@Html.DisplayFor(modelitem => item.PublishingYear)</td>
+				<td>@Html.DisplayFor(modelitem => item.Stock)</td>
+			
+			</tr>
+		}
+	</tbody>
+
+</table>

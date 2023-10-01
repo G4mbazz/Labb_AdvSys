@@ -3,6 +3,7 @@ using FluentValidation;
 using Labb_MiniAPI.Service;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLib.Models;
+using ModelsLib.Models.MVC_Tools;
 using System.Net;
 
 namespace Labb_MiniAPI.Endpoints
@@ -49,7 +50,7 @@ namespace Labb_MiniAPI.Endpoints
                             IsSuccess = true,
                             StatusCode = HttpStatusCode.OK,
                         };
-                        return Results.Ok(response.Result);
+                        return Results.Ok(response);
                     }
                     return Results.NoContent();
                 }
@@ -71,7 +72,7 @@ namespace Labb_MiniAPI.Endpoints
                             response.Result = result;
                             response.IsSuccess = true;
                             response.StatusCode = HttpStatusCode.OK;
-                            return Results.Ok(response.Result);
+                            return Results.Ok(response);
                         }
                         response.ErrorMessages.Add("Invalid ID");
                         return Results.NotFound(response);
@@ -83,7 +84,7 @@ namespace Labb_MiniAPI.Endpoints
                     }
                 }).WithName("GetBookByID").Produces<ApiResponse>(200).Produces(400);
 
-            app.MapPut("/api/book/", 
+            app.MapPut("/api/book/{id:int}", 
                 async (IValidator<BookDTO> validator, IBookRepo repo, IMapper mapper,int id, [FromBody] BookDTO book_dto) =>
             {
                 try
@@ -132,7 +133,7 @@ namespace Labb_MiniAPI.Endpoints
                     return Results.BadRequest(e);
                 }
             }).WithName("DeleteBook").Produces<ApiResponse>(200).Produces(400);
-            app.MapGet("/book/search/",
+            app.MapGet("/api/book/search/",
                 async (IBookRepo repo, IMapper mapper, string search) =>
                 {
                     try

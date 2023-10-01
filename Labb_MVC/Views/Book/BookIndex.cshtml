@@ -1,0 +1,55 @@
+﻿@using ModelsLib.Models;
+@model IEnumerable<ModelsLib.Models.Book>;
+@{
+	ViewData["Title"] = "BookIndex";
+}
+<h1 class="bookHeader">Books</h1>
+<div>
+	</br>
+	<a asp-action="Create" asp-controller="Book" class="btn btn-success">
+		Create Book <i class="fa-solid fa-plus"></i>
+	</a>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Author)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Genre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PublishingYear)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Stock)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelitem => item.Title)</td>
+				<td>@Html.DisplayFor(modelitem => item.Author)</td>
+				<td>@Html.DisplayFor(modelitem => item.Description)</td>
+				<td>@Html.DisplayFor(modelitem => item.Genre)</td>
+				<td>@Html.DisplayFor(modelitem => item.PublishingYear)</td>
+				<td>@Html.DisplayFor(modelitem => item.Stock)</td>
+				<td>
+					<a asp-action="Info" asp-route-id="@item.ID" class="btn btn-info">Info</a>
+					<a asp-action="Update" asp-route-id="@item.ID" class="btn btn-success">Update</a>
+					<a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
