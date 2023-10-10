@@ -9,19 +9,14 @@ namespace Labb_MVC.Controllers
     public class BookController : Controller
     {
         private readonly IBookService _bookService;
-        private int _id { get; set; }
         public BookController(IBookService bookService)
         {
             _bookService = bookService;
         }
-        public async Task<IActionResult> BookIndex(string searchString)
+        public async Task<IActionResult> BookIndex()
         {
             var books = new List<Book>();
             var response = await _bookService.GetAllBooks<ResponseDTO>();
-            if (!String.IsNullOrEmpty(searchString))
-            {
-				response = await _bookService.SearchBookAsync<ResponseDTO>(searchString);
-			}
 			if (response != null && response.IsSuccess)
             {
                 books = JsonConvert.DeserializeObject<List<Book>>(Convert.ToString(response.Result));
@@ -54,7 +49,6 @@ namespace Labb_MVC.Controllers
 		public async Task<IActionResult> Update(int id)
 		{
 			var responseDto = await _bookService.GetBookByID<ResponseDTO>(id);
-            _id = id;
             if (!responseDto.IsSuccess)
             {
                 return NotFound();
@@ -92,6 +86,22 @@ namespace Labb_MVC.Controllers
             }
             return View(bdto);
 
+        }
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var book = new List<BookDTO>();
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return NotFound();
+            }
+            var responseDTO = await _bookService.SearchBookAsync<ResponseDTO>(searchString);
+            if (responseDTO != null && responseDTO.IsSuccess)
+            {
+                 book = JsonConvert.DeserializeObject<List<BookDTO>>(Convert.ToString(responseDTO.Result));
+
+            }
+
+            return View(book);
         }
 
     }

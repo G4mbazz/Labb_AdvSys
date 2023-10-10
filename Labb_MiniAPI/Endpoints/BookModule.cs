@@ -12,7 +12,7 @@ namespace Labb_MiniAPI.Endpoints
     {
         public static void AddBookEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/api/book/",
+            app.MapPost("/api/book/create",
                 async (IValidator<BookDTO> validator, IMapper mapper, IBookRepo repo, [FromBody] BookDTO book_dto) =>
                 {
                     try
@@ -37,7 +37,7 @@ namespace Labb_MiniAPI.Endpoints
                     }
                 }).WithName("CreateBook").Accepts<BookDTO>("application/json").Produces<ApiResponse>(201).Produces(400);
 
-            app.MapGet("/api/book/", async (IBookRepo repo) =>
+            app.MapGet("/api/book/all", async (IBookRepo repo) =>
             {
                 try
                 {
@@ -84,7 +84,7 @@ namespace Labb_MiniAPI.Endpoints
                     }
                 }).WithName("GetBookByID").Produces<ApiResponse>(200).Produces(400);
 
-            app.MapPut("/api/book/{id:int}", 
+            app.MapPut("/api/book/update/{id:int}", 
                 async (IValidator<BookDTO> validator, IBookRepo repo, IMapper mapper,int id, [FromBody] BookDTO book_dto) =>
             {
                 try
@@ -112,7 +112,7 @@ namespace Labb_MiniAPI.Endpoints
                 }
             }).WithName("UpdateBook").Accepts<BookDTO>("application/json").Produces<ApiResponse>(200).Produces(400);
 
-            app.MapDelete("/api/book/{id:int}", async (IBookRepo repo, int id) =>
+            app.MapDelete("/api/book/delete/{id:int}", async (IBookRepo repo, int id) =>
             {
                 try
                 {
@@ -133,7 +133,7 @@ namespace Labb_MiniAPI.Endpoints
                     return Results.BadRequest(e);
                 }
             }).WithName("DeleteBook").Produces<ApiResponse>(200).Produces(400);
-            app.MapGet("/api/book/search/",
+            app.MapGet("/api/book/search/{search}",
                 async (IBookRepo repo, IMapper mapper, string search) =>
                 {
                     try
@@ -142,9 +142,9 @@ namespace Labb_MiniAPI.Endpoints
                         var result = await repo.Search(search);
                         if (result != null)
                         {
-                            var found = mapper.Map<IEnumerable<BookDTO>>(result);
+                           // var found = mapper.Map<IEnumerable<BookDTO>>(result);
                             response.StatusCode = HttpStatusCode.OK;
-                            response.Result = found;
+                            response.Result = result;
                             response.IsSuccess = true;
                             return Results.Ok(response);
                         }
